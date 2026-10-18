@@ -57,10 +57,8 @@ debian-dotfiles/
 
 ```bash
 git clone https://github.com/mishk22555-ux/linux-rice.git
-cd debian-dotfiles
+cd linux-rice
 ```
-
-Replace `YOUR_USERNAME` with your GitHub username.
 
 ### 2. Install dependencies
 
@@ -69,4 +67,4 @@ On Debian-based distributions:
 ```bash
 sudo apt update
 sudo apt install -y zsh git curl fzf \
-   
+

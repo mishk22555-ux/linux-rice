@@ -4,7 +4,7 @@ My personal Debian Linux desktop configuration featuring a minimal dark theme, a
 
 ## Preview
 
-![Terminal Screenshot](preview.png)
+![Terminal Screenshot](screenshots/preview.png)
 
 ## Setup
 

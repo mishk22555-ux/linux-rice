@@ -1,0 +1,66 @@
+# ──────────────────────────────
+# Ghostty — Dark Graphite
+# ──────────────────────────────
+
+# Font
+font-family = JetBrains Mono
+font-size = 18
+
+# Background & Foreground
+background = #19191B
+foreground = #D6D6DC
+
+# Transparency & Blur
+background-opacity = 0.88
+background-blur-radius = 20
+
+# Cursor
+cursor-color = #A78BFA
+cursor-text = #19191B
+cursor-style = bar
+cursor-style-blink = false
+
+# Selection
+selection-background = #393941
+selection-foreground = #F1F1F4
+
+# Black
+palette = 0=#242428
+palette = 8=#666672
+
+# Red
+palette = 1=#E78284
+palette = 9=#F09A9B
+
+# Green
+palette = 2=#A6D189
+palette = 10=#B8DEA0
+
+# Yellow
+palette = 3=#E5C890
+palette = 11=#F0D9A7
+
+# Blue
+palette = 4=#8CAAEE
+palette = 12=#A2BBF2
+
+# Purple
+palette = 5=#CA9EE6
+palette = 13=#D9B1EF
+
+# Cyan
+palette = 6=#81C8BE
+palette = 14=#9AD9D0
+
+# White
+palette = 7=#C6C6CF
+palette = 15=#F0F0F4
+
+# Window
+window-theme = ghostty
+window-padding-x = 12
+window-padding-y = 10
+
+# Mouse
+mouse-hide-while-typing = true
+

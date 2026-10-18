@@ -45,11 +45,10 @@ debian-dotfiles/
 │   └── fastfetch/
 │       └── config.jsonc
 ├── screenshots/
-│   ├── desktop.png
-│   └── terminal.png
+│   └── preview.png
 ├── .gitignore
 ├── LICENSE
-└── README.md
+└── readme.md
 ```
 
 ## Installation

@@ -1,52 +1,50 @@
-# enable powerlevel10k instant prompt. should stay close to the top of ~/.zshrc.
-# initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${xdg_cache_home:-$home/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${xdg_cache_home:-$home/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 
 # ╔══════════════════════════════════════════════════════╗
 # ║                  mishk225 .zshrc                     ║
 # ╚══════════════════════════════════════════════════════╝
 
-# ─── terminal ────────────────────────────────────────────
+# ─── Powerlevel10k Instant Prompt ────────────────────────
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# ─── Terminal ────────────────────────────────────────────
 clear() {
-    printf '\033[3j\033[2j\033[h'
+    printf '\033[3J\033[2J\033[H'
 }
 
-prompt_eol_mark=''
+PROMPT_EOL_MARK=''
 
-# ─── completion ──────────────────────────────────────────
-autoload -uz compinit
+# ─── Completion ──────────────────────────────────────────
+autoload -Uz compinit
 compinit
 
 zstyle ':completion:*' menu select
-zstyle ':completion:*' list-colors ${(s.:.)ls_colors}
-zstyle ':completion:*' matcher-list 'm:{a-z}={a-z}'
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 zstyle ':completion:*' group-name ''
-zstyle ':completion:*:descriptions' format '%f{yellow}-- %d --%f'
+zstyle ':completion:*:descriptions' format '%F{yellow}-- %d --%f'
 
-# ─── weather cli completion ──────────────────────────────
+# ─── Weather CLI Completion ──────────────────────────────
 _weather() {
     local -a cities languages
 
     cities=(
-        'kattakurgan:каттакурган / kattaqoʻrgʻon'
-        'samarqand:самарканд / samarqand'
-        'tashkent:ташкент / toshkent'
-        'bukhara:бухара / buxoro'
+        'kattakurgan:Каттакурган / Kattaqoʻrgʻon'
+        'samarqand:Самарканд / Samarqand'
+        'tashkent:Ташкент / Toshkent'
+        'bukhara:Бухара / Buxoro'
     )
 
     languages=(
-        'ru:русский язык'
-        'en:english language'
-        'uz:oʻzbek tili'
+        'ru:Русский язык'
+        'en:English language'
+        'uz:Oʻzbek tili'
     )
 
     _arguments \
-        '(-h --help)'{-h,--help}'[показать справку]' \
-        '(-l --lang)'{-l,--lang}'[указать язык]:язык:(ru en uz)' \
+        '(-h --help)'{-h,--help}'[Показать справку]' \
+        '(-l --lang)'{-l,--lang}'[Указать язык]:язык:(ru en uz)' \
         '1:город или язык:->arg1' \
         '2:город или язык:->arg2' && return 0
 
@@ -64,44 +62,51 @@ _weather() {
 
 compdef _weather weather
 
-# ─── history ─────────────────────────────────────────────
-histfile="$home/.zsh_history"
-histsize=10000
-savehist=10000
+# ─── History ─────────────────────────────────────────────
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=10000
+SAVEHIST=10000
 
-setopt hist_ignore_dups
-setopt hist_ignore_space
-setopt share_history
-setopt hist_reduce_blanks
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_SPACE
+setopt SHARE_HISTORY
+setopt HIST_REDUCE_BLANKS
 
-# ─── autosuggestions ─────────────────────────────────────
+# ─── Autosuggestions ─────────────────────────────────────
 if [[ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
     source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 fi
 
-zsh_autosuggest_highlight_style='fg=#666666'
-zsh_autosuggest_strategy=(history completion)
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#666666'
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
-# ─── keybindings ─────────────────────────────────────────
-bindkey '^[[a' history-search-backward
-bindkey '^[[b' history-search-forward
+# ─── Keybindings ─────────────────────────────────────────
+bindkey '^[[A' history-search-backward
+bindkey '^[[B' history-search-forward
 
 bindkey '^[f' forward-word
 bindkey '^[b' backward-word
 
-bindkey '^a' beginning-of-line
-bindkey '^e' end-of-line
+bindkey '^A' beginning-of-line
+bindkey '^E' end-of-line
 
-# ─── path ────────────────────────────────────────────────
-export path="$home/.local/bin:$path"
-export path="$home/.npm-global/bin:$path"
-export path="$home/flutter/bin:$path"
-export path="$home/development/flutter/bin:$path"
-export path="/opt/zig:$path"
-export path="$path:/snap/bin"
+# ─── PATH ────────────────────────────────────────────────
+typeset -U path
 
-# ─── fzf ─────────────────────────────────────────────────
-export fzf_default_opts='--height=40% --layout=reverse --border --info=inline'
+path=(
+    "$HOME/.local/bin"
+    "$HOME/.npm-global/bin"
+    "$HOME/flutter/bin"
+    "$HOME/development/flutter/bin"
+    /opt/zig
+    $path
+    /snap/bin
+)
+
+export PATH
+
+# ─── FZF ─────────────────────────────────────────────────
+export FZF_DEFAULT_OPTS='--height=40% --layout=reverse --border --info=inline'
 
 if [[ -f /usr/share/doc/fzf/examples/key-bindings.zsh ]]; then
     source /usr/share/doc/fzf/examples/key-bindings.zsh
@@ -111,7 +116,7 @@ if [[ -f /usr/share/doc/fzf/examples/completion.zsh ]]; then
     source /usr/share/doc/fzf/examples/completion.zsh
 fi
 
-# ─── aliases: python ─────────────────────────────────────
+# ─── Aliases: Python ─────────────────────────────────────
 alias pa='python3 app.py'
 alias pm='python3 main.py'
 
@@ -120,24 +125,24 @@ alias vm='vim main.py'
 alias vzsh='vim ~/.zshrc'
 alias szsh='source ~/.zshrc'
 
-# ─── aliases: nasm ───────────────────────────────────────
+# ─── Aliases: NASM ───────────────────────────────────────
 alias ncomp='nasm -f elf64 main.nasm -o main.o'
 alias ldcomp='ld main.o -o main'
 
-# ─── aliases: files ──────────────────────────────────────
+# ─── Aliases: Files ──────────────────────────────────────
 alias ll='ls -la --color=auto'
-alias la='ls -a --color=auto'
-alias l='ls -cf --color=auto'
+alias la='ls -A --color=auto'
+alias l='ls -CF --color=auto'
 
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 
-# ─── aliases: git ────────────────────────────────────────
+# ─── Aliases: Git ────────────────────────────────────────
 alias g='git'
 alias gs='git status -sb'
 alias ga='git add'
-alias gaa='git add -a'
+alias gaa='git add -A'
 alias gc='git commit -m'
 alias gp='git push'
 alias gpl='git pull'
@@ -148,15 +153,15 @@ alias gco='git checkout'
 alias gcb='git checkout -b'
 alias ga.='git add .'
 
-# ─── aliases: misc ───────────────────────────────────────
+# ─── Aliases: Misc ───────────────────────────────────────
 alias grep='grep --color=auto'
 alias df='df -h'
 alias du='du -sh'
 alias cls='clear'
-alias path='echo "$path" | tr ":" "\n"'
-alias cljm='clojure -m -m main'
+alias showpath='echo "$PATH" | tr ":" "\n"'
+alias cljm='clojure -M -m main'
 
-# ─── functions ───────────────────────────────────────────
+# ─── Functions ───────────────────────────────────────────
 rmf() {
     rm -r "$@"
 }
@@ -174,7 +179,7 @@ rg() {
 }
 
 ports() {
-    ss -tulpn | grep listen
+    ss -tulpn | grep LISTEN
 }
 
 archive() {
@@ -183,26 +188,23 @@ archive() {
 }
 
 fh() {
-    local command
-    command=$(fc -ln 1 | fzf --tac --no-sort) || return
-    print -z -- "$command"
+    local selected
+    selected=$(fc -ln 1 | fzf --tac --no-sort) || return
+    print -z -- "$selected"
 }
 
-# ─── syntax highlighting ─────────────────────────────────
-# load near the end of .zshrc
+# ─── Syntax Highlighting ─────────────────────────────────
 if [[ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
     source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
-# ─── powerlevel10k ───────────────────────────────────────
-if [[ -f "$home/powerlevel10k/powerlevel10k.zsh-theme" ]]; then
-    source "$home/powerlevel10k/powerlevel10k.zsh-theme"
+# ─── Powerlevel10k ───────────────────────────────────────
+if [[ -f "$HOME/powerlevel10k/powerlevel10k.zsh-theme" ]]; then
+    source "$HOME/powerlevel10k/powerlevel10k.zsh-theme"
 fi
 
-if [[ -f "$home/.p10k.zsh" ]]; then
-    source "$home/.p10k.zsh"
+if [[ -f "$HOME/.p10k.zsh" ]]; then
+    source "$HOME/.p10k.zsh"
 fi
 
-# to customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
